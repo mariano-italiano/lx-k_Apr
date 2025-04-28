@@ -62,7 +62,7 @@ apt-mark hold kubelet kubeadm kubectl >/dev/null 2>&1
 
 if [[ $(hostname) =~ .*master.* ]]
 then
-        #echo "[TASK 12] Initialize the cluster"
+        echo "[TASK 12] Initialize the cluster"
         #kubeadm init --pod-network-cidr 192.168.0.0/16 >/dev/null 2>&1
         #sleep 10
 
