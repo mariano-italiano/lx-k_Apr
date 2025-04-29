@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: toleration-pod
+  name: toleration-pod
+spec:
+  containers:
+  - image: httpd
+    name: toleration-pod
+  tolerations:
+  - key: "kubernetes.io/env"
+    operator: "Equal"
+    value: "prod"
+    effect: "NoSchedule"
+  - key: "kubernetes.io/az"
+    operator: "Exists"
+    effect: "NoExecute"
+    tolerationSeconds: 60

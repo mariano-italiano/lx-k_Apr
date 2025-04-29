@@ -1,0 +1,273 @@
+kubectl get nodes
+kubectl get pod
+kubectl get pod -o wide
+kubectl describe pod first-pod 
+kubectl describe pod test-pod2
+cd lx-k_Apr/day1/
+ls -la
+vi first-pod.yaml 
+vi test-pod.yaml 
+kubectl get pods
+kubectl describe pod test-pod
+kubectl delete pod test-pod
+kubectl apply -f test-pod.yaml 
+kubectl describe pod test-pod
+kubectl exec -it test-pod -- hostname
+kubectl exec -it test-pod -- uptime
+kubectl exec -it test-pod -- bash
+kubectl exec -it test-pod -- sh
+kubectl exec -it first-pod -- bash
+vi first-pod.yaml 
+vi test-pod.yaml 
+kubectl describe pod test-pod
+kubectl get pod test-pod -o yaml
+\
+vi sidecar-pod.yaml
+kubectl logs first-pod 
+kubectl logs test-pod
+kubectl events
+df -h
+kubectl get pods -A
+kubectl get events -n default
+kubectl get events -n kube-system
+kubectl logs 
+kubectl logs -n kube-system etcd-k8s-master 
+kubectl logs -n default test-pod
+kubectl create deployment deploy1 --image httpd --replicas 3 
+kubectl get pods
+kubectl logs deploy1-6649f7b569-bvr8v
+kubectl get pods
+kubectl logs deploy1-6649f7b569-bvr8v
+kubectl get pods 
+kubectl delete pod deploy1-6649f7b569-2z9gz
+kubectl get pods 
+kubectl get pods -o wide
+vi sidecar-pod.yaml 
+kubectl apply -f sidecar-pod.yaml
+kubectl get pods
+kubectl logs sidecar-pod 
+kubectl logs sidecar-pod -c sidecar
+kubectl logs sidecar-pod --all-containers 
+kubectl exec -it sidecar-pod 
+kubectl exec -it sidecar-pod -- sh
+kubectl exec -it sidecar-pod -c sidecar -- bash
+kubectl exec -it sidecar-pod -c sidecar -- sh
+kubectl get pods
+cp sidecar-pod.yaml init-container-pod.yaml
+vi init-container-pod.yaml
+kubectl apply -f init-container-pod.yaml
+vi init-container-pod.yaml
+kubectl apply -f init-container-pod.yaml
+watch -n1 kubectl get pods
+vi init-container-pod.yaml
+kubectl replcae --froce -f init-container-pod.yaml
+kubectl replace --froce -f init-container-pod.yaml
+kubectl replace --force -f init-container-pod.yaml
+watch -n1 kubectl get pods
+kubectl logs init-container-pod --all-containers 
+vi init-container-pod.yaml
+kubectl logs init-container-pod --all-containers 
+git pull
+git checkout config 
+git branch
+ls -la
+cd ..
+ls -la
+rm *.md
+rm day1 -rf
+ls -la
+rm *.txt *.sh
+ls -la
+vi index.html
+git status
+git add .
+git commit -m "adding index"
+git push
+git checkout master 
+ls -la
+cd day1
+ls -la
+cd ..
+mkdir day2
+vi sidecar-pod.yaml
+mv sidecar-pod.yaml day2/
+cd day2
+ls -la
+git pull
+vi init-container-pod.yaml
+kubectl get pod init-container-pod -o yaml
+kubectl get pod init-container-pod -o yaml > init-container-pod.yaml
+vi init-container-pod.yaml
+vi init-container-pod2.yaml
+kubectl apply -f init-container-pod2.yaml
+kubectl get pods
+watch -n1 kubectl get pods
+watch -n1 kubectl get pods -o wide
+kubectl get pods --show-labels 
+cp init-container-pod2.yaml init-web.yaml
+vi init-web.yaml
+kubectl apply -f init-web.yaml
+watch -n1 kubectl get pods
+ls -la $HOME/.kube/config
+kubectl get pods -o wide
+kubectl get pods -o wide | grep worker01 | wc -l
+kubectl get pods -o wide | grep worker02 | wc -l
+vi nodename-pod.yaml
+kubectl apply -f nodename-pod.yaml
+kubectl get pods -o wide
+kubectl get nodes --show-labels 
+cp -rp nodename-pod.yaml nodeselector-pod.yaml
+vi nodeselector-pod.yaml
+kubectl apply -f nodeselector-pod.yaml
+kubectl get nodes --show-labels 
+kubectl get pods -o wide
+kubectl events
+kubectl label node worker02 kubernetes.io/hostname=worker03
+vi nodeselector-pod.yaml 
+kubectl replace --force -f nodeselector-pod.yaml
+kubectl get pods -o wide
+kubectl label nodes worker02 kubernetes.io/zone=dmz 
+kubectl get pods -o wide
+kubectl taint node worker01 kubernetes.io/env=prod:NoSchedule
+kubectl run taint-pod1 --image httpd 
+kubectl get pods -o wide
+kubectl run taint-pod2 --image httpd 
+kubectl get pods -o wide
+kubectl run taint-pod3 --image httpd -o yaml --dry-run=client
+kubectl run taint-pod3 --image httpd -o yaml --dry-run=client > toleration-pod.yaml
+vi toleration-pod.yaml
+kubectl apply -f toleration-pod.yaml
+kubectl get pods -o wide
+vi toleration-pod.yaml 
+kubectl apply -f toleration-pod.yaml
+kubectl get pod toleration-pod -o yaml | grep tolerations -A 15
+kubectl taint node worker01 kubernetes.io/az=apac ; watch -n1 kubectl get pods -o wide
+kubectl taint node worker01 kubernetes.io/az=apac:NoExecute ; watch -n1 kubectl get pods -o wide
+kubectl events
+kubectl get pods -o wide
+kubectl taint node worker01 kubernetes.io/az-
+kubectl get nodes --show-labels 
+kubectl label node worker02 kubernetes.io/zone-
+kubectl get nodes --show-labels 
+kubectl get pods -o wide
+kubectl rollout restart deployment deploy1 
+kubectl get pods -o wide
+watch -n  1 kubectl get pods -o wide
+kubectl get nodes worker01 -o yaml
+kubectl describe nodes worker0l
+kubectl describe nodes worker01
+kubectl taint node worker01 kubernetes.io/env=prod-
+kubectl taint node worker01 kubernetes.io/env-
+kubectl get pods -o wide
+watch -n  1 kubectl get pods -o wide
+kubectl rollout restart deployment deploy1 
+watch -n  1 kubectl get pods -o wide
+vi with-node-affinity.yaml
+kubectl label node worker02 kubernetes.io/country=poland
+kubectl label node worker01 kubernetes.io/country=france
+kubectl label node worker02 kubernetes.io/zone=az1
+kubectl apply -f with-node-affinity.yaml 
+watch -n  1 kubectl get pods -o wide
+watch -n  1 kubectl get pods -o wide --show-labels 
+vi with-pod-affinity.yaml
+kubectl get pods --show-labels 
+kubectl get pods --show-labels -o wide
+kubectl apply -f with-pod-affinity.yaml 
+vi with-pod-affinity.yaml
+kubectl apply -f with-pod-affinity.yaml 
+kubectl get pods --show-labels -o wide
+cp -rp with-pod-affinity.yaml with-pod-antiaffinity.yaml
+vi with-pod-antiaffinity.yaml
+kubectl apply -f with-pod-antiaffinity.yaml 
+vi with-pod-antiaffinity.yaml
+kubectl apply -f with-pod-antiaffinity.yaml
+kubectl get pods --show-labels -o wide
+vi my-replicaset.yaml
+kubectl apply -f my-replicaset.yaml
+kubectl get po -o wide
+kubectl get po,rs
+kubectl get po,rs -o wide
+kubectl get po,rs --show-
+kubectl get po,rs --show-labels 
+kubectl edit pod nodename-pod 
+kubectl get po,rs --show-labels 
+kubectl delete pod nodename-pod 
+kubectl get po,rs --show-labels 
+kubectl scale rs my-replicaset --replicas 10
+kubectl get po,rs --show-labels 
+kubectl scale rs my-replicaset --replicas 1
+kubectl get po,rs --show-labels 
+vi my-deployment.yaml
+kubectl get pods
+kubectl delete all --all 
+kubectl apply -f my-deployment.yaml 
+kubectl get deploy,rs,pod
+kubectl describe deployments.apps my-deployment 
+kubectl set image deployments my-deployment web=nginx:1.19.2
+kubectl rollout status deployments my-deployment
+kubectl get pods
+kubectl rollout history deployment my-deployment 
+kubectl annotate deployments.apps my-deployment kubernetes.io/change-cause="implementer: Marcin, date: 29.04.2025, Change number: GZB12345, update version 1.14.2 to 1.19.2"
+kubectl rollout history deployment my-deployment 
+kubectl edit deployments.apps my-deployment 
+kubectl rollout history deployment my-deployment 
+kubectl edit deployments.apps my-deployment 
+kubectl rollout history deployment my-deployment 
+kubectl get pods
+kubectl edit deployments.apps my-deployment 
+kubectl rollout status deployments my-deployment
+kubectl edit deployments.apps my-deployment 
+kubectl rollout history deployment my-deployment 
+kubectl set image deployments my-deployment web=nginx:latest --record 
+watch -n1 kubectl get pods 
+kubectl rollout history deployment my-deployment 
+kubectl annotate deployments.apps my-deployment kubernetes.io/change-cause="update version to latest (NOT EXECUTE IN PROD)"
+kubectl rollout history deployment my-deployment 
+kubectl edit deployments.apps my-deployment 
+watch -n1 kubectl get pods 
+kubectl rollout history deployment my-deployment 
+kubectl set image deployments my-deployment web=nginx:broken
+watch -n1 kubectl get pods 
+kubectl edit deployments.apps my-deployment 
+kubectl rollout status deployment my-deployment 
+kubectl rollout history deployment my-deployment 
+kubectl rollout undo deployment my-deployment --to-revision 1
+kubectl rollout history deployment my-deployment 
+kubectl annotate deployments.apps my-deployment kubernetes.io/change-cause="rollback deployment to revision 1 to image versino 1.14.2"
+kubectl rollout history deployment my-deployment 
+kubectl get pods
+kubectl describe deployments.apps my-deployment 
+kubectl get rs
+kubectl rollout history deployment my-deployment 
+kubectl describe rs my-deployment-54776bf59b 
+kubectl describe rs my-deployment-ff9bfd745 
+kubectl get rs
+kubectl rollout history deployment my-deploymen
+kubectl rollout history deployment my-deployment 
+kubectl delet rs my-deployment-ff9bfd745 
+kubectl delete rs my-deployment-ff9bfd745 
+kubectl rollout history deployment my-deployment 
+kubectl edit deployments.apps my-deployment 
+kubectl describe deployments.apps my-deployment 
+kubectl set image deployments my-deployment web=nginx:stable-perl ; watch -n1 kubectl get pod
+kubectl describe deployments.apps my-deployment 
+kubectl rollout restart deployment my-deployment 
+watch -n1 kubectl get pod
+kubectl describe nodes  k8s-master 
+vi my my-daemonset.yaml
+kubectl apply -f my-daemonset.yaml
+vi my
+mv my my-daemonset.yaml
+kubectl apply -f my-daemonset.yaml
+kubectl get pod,ds
+kubectl get pod,ds -o wide
+vi my-statefulset.yaml
+kubectl apply -f my-statefulset.yaml
+kubectl get pod,sts
+kubectl scale sts my-statefulset --replicas 8
+watch -n1 kubectl get pods
+kubectl scale sts my-statefulset --replicas 1
+watch -n1 kubectl get pods
+history
+cd ..
+history | awk '$1 > 168' | cut -c 8- > day2-history.txt
