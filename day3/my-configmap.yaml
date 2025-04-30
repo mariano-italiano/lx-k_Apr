@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: my-configmap
+data:
+  key1: value1
+  klucz2: "8"
+  version: "1.0"
+  multiline: |
+    linia1
+    linia2
+    cos tam jeszcze
+    ostatnia linia
+  config.json: |
+    { "attr1": "value1", "attr2": "val2" }
